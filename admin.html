@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opalcrest Admin — Manage products</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/svg+xml" href="assets/logo-icon-color.svg">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="wordmark"><span class="crest-mark"><img src="assets/logo-icon-color.svg" alt=""></span>Opalcrest <span style="color:var(--ink-soft); font-weight:400; font-size:0.9rem;">/ Admin</span></a>
+    <button class="btn btn-ghost" id="logoutBtn" style="display:none; color:var(--ink); border-color:var(--line);">Log out</button>
+  </div>
+</header>
+
+<main class="wrap" style="padding-top:48px; padding-bottom:80px;">
+
+  <!-- Login -->
+  <section id="loginSection" style="max-width:380px; margin:60px auto;">
+    <h1 style="font-family:var(--font-display); font-weight:500; font-size:1.6rem; margin-bottom:6px;">Admin sign in</h1>
+    <p style="color:var(--ink-soft); font-size:0.9rem; margin-top:0;">Sign in with the admin account you created in Firebase Authentication.</p>
+    <div class="field">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" autocomplete="current-password">
+    </div>
+    <button class="pay-btn" id="loginBtn" style="width:100%;">Sign in</button>
+    <p id="loginError" style="color:var(--danger); font-size:0.85rem; display:none;"></p>
+  </section>
+
+  <!-- Dashboard (shown once signed in) -->
+  <section id="dashboard" style="display:none;">
+
+    <div class="section-heading" style="margin-top:0;">
+      <h2 id="formTitle">Add a product</h2>
+      <button class="btn btn-ghost" id="cancelEditBtn" style="display:none; color:var(--ink); border-color:var(--line); padding:8px 16px; font-size:0.82rem;">Cancel edit</button>
+    </div>
+
+    <form id="productForm" style="background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:24px; margin-bottom:16px;">
+      <div class="form-row">
+        <div class="field">
+          <label for="pName">Product name</label>
+          <input type="text" id="pName" required>
+        </div>
+        <div class="field">
+          <label for="pCategory">Category</label>
+          <input type="text" id="pCategory" required placeholder="e.g. Bags, Home, Footwear">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="pPrice">Price (₦, whole number)</label>
+          <input type="number" id="pPrice" required min="0" step="1">
+        </div>
+        <div class="field">
+          <label for="pStock">Stock</label>
+          <input type="number" id="pStock" required min="0" step="1">
+        </div>
+      </div>
+      <div class="field">
+        <label for="pImage">Image URL</label>
+        <input type="url" id="pImage" required placeholder="https://...">
+      </div>
+      <div class="field">
+        <label for="pDescription">Description</label>
+        <textarea id="pDescription" rows="2" required></textarea>
+      </div>
+      <button type="submit" class="pay-btn" id="submitBtn" style="width:auto; padding:12px 28px;">Add product</button>
+      <span id="formStatus" style="font-size:0.85rem; margin-left:12px; color:var(--ink-soft);"></span>
+    </form>
+
+    <details style="margin-bottom:40px;">
+      <summary style="cursor:pointer; font-size:0.88rem; color:var(--ink-soft); padding:8px 0;">Advanced: bulk import from JSON</summary>
+      <div style="background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:20px; margin-top:8px;">
+        <p style="font-size:0.85rem; color:var(--ink-soft); margin-top:0;">Paste an array of products in the same shape as <code>products.json</code> (name, category, price, image, description, stock) and import them all at once.</p>
+        <textarea id="bulkJson" rows="6" style="width:100%; font-family:var(--font-mono); font-size:0.8rem; padding:10px; border:1px solid var(--line); border-radius:var(--radius);" placeholder='[{"name":"...", "category":"...", "price":15000, "image":"...", "description":"...", "stock":10}]'></textarea>
+        <button class="btn btn-primary" id="bulkImportBtn" style="margin-top:10px;">Import</button>
+        <span id="bulkStatus" style="font-size:0.85rem; margin-left:10px; color:var(--ink-soft);"></span>
+      </div>
+    </details>
+
+    <div class="section-heading">
+      <h2>Current products</h2>
+      <span id="productCount"></span>
+    </div>
+    <div id="adminProductList"></div>
+
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

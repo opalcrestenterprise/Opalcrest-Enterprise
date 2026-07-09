@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opalcrest Enterprise — Considered goods, honestly priced</title>
+<meta name="description" content="Opalcrest Enterprise online store — bags, home goods, footwear and apparel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/svg+xml" href="assets/logo-icon-color.svg">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#" class="wordmark"><span class="crest-mark"><img src="assets/logo-icon-color.svg" alt=""></span>Opalcrest</a>
+    <nav class="categories" id="categoryNav">
+      <button class="active" data-category="all">All</button>
+    </nav>
+    <button class="cart-btn" id="openCart">
+      Cart <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-panel">
+      <div class="hero-copy">
+        <span class="hero-eyebrow">New arrivals</span>
+        <h1>Considered goods, honestly priced.</h1>
+        <p>Small-batch pieces for the home and the everyday carry — sourced, not mass produced.</p>
+        <div class="hero-cta">
+          <a href="#shop" class="btn btn-primary">Shop the collection</a>
+          <a href="#" class="btn btn-ghost">Our story</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=900&q=80" alt="Curated goods on display">
+      </div>
+    </div>
+  </section>
+
+  <div class="section-heading" id="shop">
+    <h2>Shop all</h2>
+    <span id="resultCount"></span>
+  </div>
+  <div class="product-grid" id="productGrid">
+    <!-- product cards injected by app.js -->
+  </div>
+</main>
+
+<footer class="wrap">
+  <div class="footer-brand">
+    <img src="assets/logo-icon-mono.svg" alt="Opalcrest">
+    <span>© <span id="year"></span> Opalcrest Enterprise. All rights reserved.</span>
+  </div>
+  <div>Secure payment via Paystack · Cards, bank transfer, USSD</div>
+</footer>
+
+<!-- Cart -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2>Your cart</h2>
+    <button class="close-btn" id="closeCart">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total-row"><span>Subtotal</span><span id="cartTotal">₦0</span></div>
+    <button class="checkout-btn" id="checkoutBtn" disabled>Checkout</button>
+  </div>
+</aside>
+
+<!-- Checkout modal -->
+<div class="modal-overlay" id="checkoutOverlay">
+  <div class="modal">
+    <button class="modal-close" id="closeModal">&times;</button>
+    <div id="checkoutForm">
+      <h2>Delivery details</h2>
+      <div class="field">
+        <label for="custName">Full name</label>
+        <input type="text" id="custName" required>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="custEmail">Email</label>
+          <input type="email" id="custEmail" required>
+        </div>
+        <div class="field">
+          <label for="custPhone">Phone</label>
+          <input type="tel" id="custPhone" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="custAddress">Delivery address</label>
+        <textarea id="custAddress" rows="3" required></textarea>
+      </div>
+      <button class="pay-btn" id="payBtn">Pay <span id="payAmount">₦0</span></button>
+    </div>
+    <div id="orderSuccess" class="order-success" style="display:none;">
+      <div class="crest-mark-lg"><img src="assets/logo-icon-color.svg" alt=""></div>
+      <h2>Order received</h2>
+      <p>Thank you — we've got it and will confirm shortly.</p>
+      <div class="order-ref" id="orderRef"></div>
+      <p style="font-size:0.85rem;">A confirmation has been sent to your email.</p>
+      <button class="btn btn-primary" id="continueShopping" style="margin-top:12px;">Continue shopping</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase (order storage) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<!-- Paystack inline checkout -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
